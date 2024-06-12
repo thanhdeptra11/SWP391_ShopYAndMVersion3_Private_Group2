@@ -6,6 +6,7 @@ package Controller.Admin;
 
 import dal.categoryDAO;
 import dal.productDAO;
+import dal.reportDAO;
 import dal.userDAO;
 import jakarta.servlet.RequestDispatcher;
 import java.io.IOException;
@@ -18,6 +19,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import java.util.List;
 import model.Category;
+import model.Report;
 import model.User;
 
 /**
@@ -49,7 +51,10 @@ public class ReportManager extends HttpServlet {
             if (user.getIsAdmin().equalsIgnoreCase("true")) {
                 if (action == null) {
                     userDAO cdao = new userDAO();
+                    reportDAO rdao = new reportDAO();
+                    List<Report> reports = rdao.getAll();
                     List<User> users = cdao.getUser();
+                    session.setAttribute("Reports", reports);
                     request.setAttribute("users", users);
                     page = "admin/report.jsp";
                 } else if (action.equalsIgnoreCase("insertcategory")) {
@@ -105,6 +110,15 @@ public class ReportManager extends HttpServlet {
                     dao.deleteCategory(id);
                     response.sendRedirect("categorymanager");
                     return;
+                }else if (action.equalsIgnoreCase("insert")) {
+                    reportDAO dao = new reportDAO();
+                   String user_id = request.getParameter("user_id");
+                   String user_email = request.getParameter("user_email");
+                   String subject_report = request.getParameter("subject_report");
+                   String content_report = request.getParameter("content_report");
+                   dao.InsertReport(user_id, content_report, subject_report, user_email);
+                   session.setAttribute("msgc", "Bạn đã phản hồi thành công");
+                   response.sendRedirect("contact.jsp");
                 }
             }
         } catch (Exception e) {

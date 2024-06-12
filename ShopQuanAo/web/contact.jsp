@@ -64,23 +64,32 @@
                     </div>
                     <div class="col-lg-6 col-md-12">
                         <div class="contact_message form">
-                            <h3>Gửi thông tin phản hồi</h3>   
-                            <form id="contact-form" method="GET" action="https://script.google.com/macros/s/AKfycby2HoMCJyTeclcs-4VlInS-NG_hs161qiMTiuzUOpNZp_YRsmk/exec">
-                                <p>       
-                                    <label>  Địa chỉ email</label>
-                                    <input name="Email" pattern="[^ @]*@[^ @]*" placeholder="Nhập email của bạn ..." required="" value="" type="email">
+                            <h3>Gửi thông tin phản hồi</h3> 
+
+                            <form id="contact-form" method="POST" action="contact">
+                                <p style="color: red; align-content: center;">
+                                    ${requestScope.msgc}
                                 </p>
+                              
+                                <p>      
+                                    <label>  Địa chỉ email</label>
+                                    <input style="font-weight: bolder" name="user_email" readonly type="text" value="${user.user_email}">
+                                </p>
+
                                 <p>          
                                     <label>  Tiêu đề</label>
-                                    <input name="Subject" placeholder="Nhập tiêu đề ..." required="" value="" type="text">
+                                    <input name="subject_report" placeholder="Nhập tiêu đề ..." required type="text">
                                 </p>    
                                 <div class="contact_textarea">
-                                    <label>  Thông tin</label>
-                                    <input placeholder="Nhập thông tin ..." name="Message" required="" value="" class="form-control2" >    
+                                    <label>  Nội dung</label>
+                                    <input placeholder="Nhập nội dung của phản hồi ..." name="content_report" required/>  
                                 </div>
+                                <input hidden name="user_id" require type="text" value="${user.user_id}">
                                 <br>
                                 <button type="submit"> Gửi</button>
-                            </form> 
+                            </form>    
+
+
                         </div> 
                     </div>
                 </div>
