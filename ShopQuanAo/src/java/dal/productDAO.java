@@ -98,6 +98,44 @@ public class productDAO extends DBContext {
         }
         return list;
     }
+    // search mau
+     public List<Product> getProductColor(String a) {
+        List<Product> list = new ArrayList<>();
+        String sql = "Select Distinct c.category_name ,  p.product_id , p.product_name, p.product_price, p.product_describe, p.quantity,p.img, p.category_id, co.color\n"
+                + "FROM category c \n"
+                + "INNER JOIN product p ON p.category_id = c.category_id\n"
+                + "INNER JOIN product_color co ON co.product_id = p.product_id\n"
+                + "WHERE co.color = ?\n"
+                + "ORDER BY p.product_id";
+        try {
+            conn = new DBContext().getConnection();
+            ps = conn.prepareStatement(sql);
+            ps.setString(1, a);
+
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                Category c = new Category(rs.getInt(8), rs.getString(1));
+                list.add(new Product(c, rs.getString(2), rs.getString(3), rs.getFloat(4), rs.getString(5), rs.getInt(6), rs.getString(7)));
+            }
+        } catch (Exception e) {
+            System.out.println(e);
+        } finally {
+            try {
+                if (rs != null) {
+                    rs.close();
+                }
+                if (ps != null) {
+                    ps.close();
+                }
+                if (conn != null) {
+                    conn.close();
+                }
+            } catch (Exception e) {
+                System.out.println(e);
+            }
+        }
+        return list;
+    }
 
     public void insertProduct(Product product) {
         String sql = "insert into product (product_id,category_id,product_name,product_price,product_describe,quantity,img) values(?,?,?,?,?,?,?)";
