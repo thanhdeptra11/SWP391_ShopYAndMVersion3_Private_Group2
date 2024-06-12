@@ -262,9 +262,112 @@ public class Product extends HttpServlet {
                 request.getRequestDispatcher("shop_category.jsp").forward(request, response);
             }
         }
+        //Search By Color
+           if (action.equalsIgnoreCase("SearchByColor")) {
+            productDAO dao = new productDAO();
+            String[] choose = request.getParameterValues("colors");
+            List<model.Product> list1 = dao.getProductColor("Red");
+            List<model.Product> list2 = dao.getProductColor("Blue");
+            List<model.Product> list3 = dao.getProductColor("White");
+            List<model.Product> list4 = dao.getProductColor("Black");
+            List<model.Product> list0 = dao.getProduct();
+            List<model.Product> listp = new ArrayList<>();
+            if (choose == null || choose.equals("") || choose.length == 0 || choose.length == 4) {
+                request.setAttribute("ProductData", list0);
+                request.getRequestDispatcher("shop_category.jsp").forward(request, response);
+            }
+            if (choose.length == 3) {
+                if (!choose[0].equals("0") && !choose[1].equals("0") && !choose[2].equals("0")) {
+                    listp.addAll(list2);
+                    listp.addAll(list3);
+                    listp.addAll(list4);
+                    request.setAttribute("ProductData", listp);
+                    request.getRequestDispatcher("shop_category.jsp").forward(request, response);
+                }
+                if (!choose[0].equals("1") && !choose[1].equals("1") && !choose[2].equals("1")) {
+                    listp.addAll(list1);
+                    listp.addAll(list3);
+                    listp.addAll(list4);
+                    request.setAttribute("ProductData", listp);
+                    request.getRequestDispatcher("shop_category.jsp").forward(request, response);
+                }
+                if (!choose[0].equals("2") && !choose[1].equals("2") && !choose[2].equals("2")) {
+                    listp.addAll(list1);
+                    listp.addAll(list2);
+                    listp.addAll(list4);
+                    request.setAttribute("ProductData", listp);
+                    request.getRequestDispatcher("shop_category.jsp").forward(request, response);
+                }
+                if (!choose[0].equals("3") && !choose[1].equals("3") && !choose[2].equals("3")) {
+                    listp.addAll(list1);
+                    listp.addAll(list3);
+                    listp.addAll(list2);
+                    request.setAttribute("ProductData", listp);
+                    request.getRequestDispatcher("shop_category.jsp").forward(request, response);
+                }
+            }
+            if (choose.length == 2) {
+                if (choose[0].equals("0") && choose[1].equals("1")) {
+                    listp.addAll(list1);
+                    listp.addAll(list2);
+                    request.setAttribute("ProductData", listp);
+                    request.getRequestDispatcher("shop_category.jsp").forward(request, response);
+                }
+                if (choose[0].equals("0") && choose[1].equals("2")) {
+                    listp.addAll(list1);
+                    listp.addAll(list3);
+                    request.setAttribute("ProductData", listp);
+                    request.getRequestDispatcher("shop_category.jsp").forward(request, response);
+                }
+                if (choose[0].equals("0") && choose[1].equals("3")) {
+                    listp.addAll(list1);
+                    listp.addAll(list4);
+                    request.setAttribute("ProductData", listp);
+                    request.getRequestDispatcher("shop_category.jsp").forward(request, response);
+                }
+                if (choose[0].equals("1") && choose[1].equals("2")) {
+                    listp.addAll(list2);
+                    listp.addAll(list3);
+                    request.setAttribute("ProductData", listp);
+                    request.getRequestDispatcher("shop_category.jsp").forward(request, response);
+                }
+                if (choose[0].equals("1") && choose[1].equals("3")) {
+                    listp.addAll(list2);
+                    listp.addAll(list4);
+                    request.setAttribute("ProductData", listp);
+                    request.getRequestDispatcher("shop_category.jsp").forward(request, response);
+                }
+                if (choose[0].equals("2") && choose[1].equals("3")) {
+                    listp.addAll(list3);
+                    listp.addAll(list4);
+                    request.setAttribute("ProductData", listp);
+                    request.getRequestDispatcher("shop_category.jsp").forward(request, response);
+                }
+            }
+            if (choose.length == 1) {
+                if (choose[0].equals("0")) {
+                    request.setAttribute("ProductData", list1);
+                    request.getRequestDispatcher("shop_category.jsp").forward(request, response);
+                }
+                if (choose[0].equals("1")) {
+                    request.setAttribute("ProductData", list2);
+                    request.getRequestDispatcher("shop_category.jsp").forward(request, response);
+                }
+                if (choose[0].equals("2")) {
+                    request.setAttribute("ProductData", list3);
+                    request.getRequestDispatcher("shop_category.jsp").forward(request, response);
+                }
+                if (choose[0].equals("3")) {
+                    request.setAttribute("ProductData", list4);
+                    request.getRequestDispatcher("shop_category.jsp").forward(request, response);
+                }
+            }
+
+        }
 
     }
-
+    
+    
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
      * Handles the HTTP <code>GET</code> method.
@@ -303,5 +406,5 @@ public class Product extends HttpServlet {
     public String getServletInfo() {
         return "Short description";
     }// </editor-fold>
-
 }
+
