@@ -71,16 +71,14 @@
             <div class="row">
                 <div class="col-md-12">
                     <div class="app-title">
-                        <ul class="app-breadcrumb breadcrumb">
-                            <!--                            <li class="breadcrumb-item"><a href="#">Bảng Thống kê<b></b></a></li>-->
+                        <ul class="app-breadcrumb breadcrumb">                          
                         </ul>
-
                         <div id="clock"></div>
-                        <canvas id="lineChartDemo" width="400" height="200"></canvas>
+                        <div id="piechart" style="width: 900px; height: 500px;"></div>
+                        <div id="curve_chart" style="width: 100px; height: 200px"></div>
                         <div
                             id="myChart" style="width:100%; max-width:600px; height:500px;">
                         </div>
-
                     </div>
                 </div>
             </div>          
@@ -196,70 +194,49 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.min.js"></script>
 
     <script type="text/javascript">
-        var data = {
-            labels: ["Tháng 1", "Tháng 2", "Tháng 3", "Tháng 4", "Tháng 5", "Tháng 6", "Tháng 7", "Tháng 8", "Tháng 9", "Tháng 10", "Tháng 11", "Tháng 12"],
-            datasets: [{
-                    label: "Paid",
-                    backgroundColor: "rgba(255, 213, 59, 0.5)",
-                    borderColor: "rgb(255, 212, 59)",
-                    borderWidth: 1,
-                    data: [20000000, 59000000, 90000000, 51000000, 56000000, 47000000, 60000000, 59000000, 70000000, 51000000, 36000000, 27000000]
-                },
-                {
-                    label: "Pending",
-                    backgroundColor: "rgba(9, 109, 239, 0.5)",
-                    borderColor: "rgb(9, 109, 239)",
-                    borderWidth: 1,
-                    data: [48000000, 48000000, 49000000, 39000000, 86000000, 27000000, 70000000, 59000000, 90000000, 51000000, 56000000, 27000000]
-                }
-            ]
-        };
-
-        document.addEventListener("DOMContentLoaded", function () {
-            var ctxl = document.getElementById("lineChartDemo").getContext("2d");
-            var lineChart = new Chart(ctxl, {
-                type: 'line',
-                data: data
-            });
-
-            var ctxb = document.getElementById("barChartDemo").getContext("2d");
-            var barChart = new Chart(ctxb, {
-                type: 'bar',
-                data: data
-            });
-        });
-    </script>
-
-
-
-    <script>
         google.charts.load('current', {'packages': ['corechart']});
         google.charts.setOnLoadCallback(drawChart);
 
         function drawChart() {
-
-            // Set Data
-            const data = google.visualization.arrayToDataTable([
-                ['Country', 'Mhl'],
-                ['SHIRT', 30],
-                ['T-SHIRT', 25],
-                ['OUTERWEAR', 5],
-                ['HOODIES', 5],
-                ['SHORT&PANTS', 10],
-                ['ACCESSORIES', 10],
-                ['SOCIAL', 12],
-                ['OTHER', 3]
+            var data = google.visualization.arrayToDataTable([
+                ['Category', 'Count'],
+        <c:forEach var="category" items="${categoryList}">
+                ['${category.category_name}', ${category.count}],
+        </c:forEach>
             ]);
 
-            // Set Options
-            const options = {
-                title: 'Product'
+            var options = {
+                title: 'Tỉ lệ danh mục'
             };
 
+            var chart = new google.visualization.PieChart(document.getElementById('piechart'));
+            chart.draw(data, options);
+        }
+    </script>
 
+    <script type="text/javascript">
+        function drawLineChart() {
+            var data = new google.visualization.DataTable();
+            data.addColumn('date', 'Date');
+            data.addColumn('number', 'Paid');
+            data.addColumn('number', 'Unpaid');
 
-            // Draw
-            const chart = new google.visualization.PieChart(document.getElementById('myChart'));
+            var rows = [];
+        <c:if test="${not empty dateList}">
+            <c:forEach var="i" begin="0" end="${dateList.size() - 1}">
+            rows.push([new Date('${dateList[i]}'), ${paidList[i] != null ? paidList[i] : 0}, ${unpaidList[i] != null ? unpaidList[i] : 0}]);
+            </c:forEach>
+        </c:if>
+
+            data.addRows(rows);
+
+            var options = {
+                title: 'Paid vs Unpaid Amount by Date',
+                curveType: 'function',
+                legend: {position: 'bottom'}
+            };
+
+            var chart = new google.visualization.LineChart(document.getElementById('curve_chart'));
             chart.draw(data, options);
 
         }

@@ -63,17 +63,56 @@ public class categoryDAO extends DBContext {
             e.printStackTrace();
         }
     }
-    
-    public void deleteCategory(int categoryId) {
-    try {
-        String sql = "DELETE FROM category WHERE category_id = ?";
-        conn = new DBContext().getConnection();
-        ps = conn.prepareStatement(sql);
-        ps.setInt(1, categoryId);
-        ps.executeUpdate();
-    } catch (Exception e) {
-        e.printStackTrace();
-    }
-}
 
+    public void deleteCategory(int categoryId) {
+        try {
+            String sql = "DELETE FROM category WHERE category_id = ?";
+            conn = new DBContext().getConnection();
+            ps = conn.prepareStatement(sql);
+            ps.setInt(1, categoryId);
+            ps.executeUpdate();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public List<Category> getCategoryCounts() throws Exception {
+        List<Category> list = new ArrayList<>();
+        String sql = "SELECT c.category_id, c.category_name, COUNT(p.product_id) AS count "
+                + "FROM category c LEFT JOIN product p ON c.category_id = p.category_id "
+                + "GROUP BY c.category_id, c.category_name";
+        try {
+            conn = new DBContext().getConnection();
+            ps = conn.prepareStatement(sql);
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                list.add(new Category(rs.getInt(1), rs.getString(2), rs.getInt(3)));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                if (rs != null) {
+                    rs.close();
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+            try {
+                if (ps != null) {
+                    ps.close();
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+            try {
+                if (conn != null) {
+                    conn.close();
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+        return list;
+    }
 }

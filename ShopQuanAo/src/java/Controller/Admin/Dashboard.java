@@ -6,6 +6,7 @@
 package Controller.Admin;
 
 import dal.billDAO;
+import dal.categoryDAO;
 import dal.productDAO;
 import model.Bill;
 import model.User;
@@ -17,6 +18,8 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
+import java.util.ArrayList;
+import java.util.Date;
 import model.Category;
 
 
@@ -41,27 +44,36 @@ protected void processRequest(HttpServletRequest request, HttpServletResponse re
         if (user.getIsAdmin().equalsIgnoreCase("true")) {
             productDAO dao = new productDAO();
             billDAO bdao = new billDAO();
-
-            // Retrieve start and end dates from request parameters
+            categoryDAO cdao = new categoryDAO();
+            //pie chart
+            List<Category> categoryList = cdao.getCategoryCounts();
+            request.setAttribute("categoryList", categoryList);            
+            List<Bill> billbyday = bdao.getBillByDay();
+            List<Double> paidList = new ArrayList<>();
+            List<Double> unpaidList = new ArrayList<>();
+            List<Date> dateList = new ArrayList<>();
+            
+            for (Bill bill : billbyday) {
+                double totalPaid = bdao.getTotalPaidByDate(bill.getDate());
+                double totalUnpaid = bdao.getTotalUnpaidByDate(bill.getDate());
+                paidList.add(totalPaid);
+                unpaidList.add(totalUnpaid);
+                dateList.add(bill.getDate());
+            }
             String startDate = request.getParameter("startDate");
             String endDate = request.getParameter("endDate");
-
-            // If start or end date is not provided, set them to default values or retrieve them from previous request attributes
             if (startDate == null || startDate.isEmpty()) {
-                startDate = "default_start_date"; // Replace with default start date or get from previous request attributes
+                startDate = "default_start_date"; 
             }
             if (endDate == null || endDate.isEmpty()) {
-                endDate = "default_end_date"; // Replace with default end date or get from previous request attributes
+                endDate = "default_end_date"; 
             }
-
-            // Get bills between the specified dates
             List<Bill> bills = bdao.getBillBetweenDates(startDate, endDate);           
-            // Set other attributes as needed
             int count = dao.CountProduct();
             int countuser = dao.CountUser();
             int countbill = dao.CountBill();
             int countproductlow = dao.CountProductLow();
-            List<Bill> billbyday = bdao.getBillByDay();
+//            List<Bill> billbyday = bdao.getBillByDay();
             request.setAttribute("product", count);
             request.setAttribute("user", countuser);
             request.setAttribute("bill", countbill);

@@ -10,14 +10,20 @@ import java.util.ArrayList;
 public class Category {
     int category_id;
     String category_name;
+    int count;
     private ArrayList<Product> product = new ArrayList<>();
-
+    
     public Category() {
     }
 
     public Category(int category_id, String category_name) {
         this.category_id = category_id;
         this.category_name = category_name;
+    }
+    public Category(int category_id, String category_name,int count) {
+        this.category_id = category_id;
+        this.category_name = category_name;
+        this.count = count;
     }
     
     public Category(String category_name) {
@@ -42,6 +48,12 @@ public class Category {
 
     public void setCategory_name(String category_name) {
         this.category_name = category_name;
+    }
+    public int getCount(){
+        return  count;
+    }
+    public void setCount(int count){
+        this.count = count;
     }
 
     public ArrayList<Product> getProduct() {
