@@ -107,7 +107,7 @@
                                                     <label><b>Tên người dùng</b></label>
                                                     <input type="text" name="user_name" value="${sessionScope.user.user_name}" placeholder="Nhập tên người dùng">
                                                     <label><b>Email</b></label>
-                                                    <input type="text" readonly name="user_email" value="${sessionScope.user.user_email}">
+                                                    <input type="text" style="font-weight: bolder" readonly name="user_email" value="${sessionScope.user.user_email}">
                                                     <label><b>Mật khẩu</b></label>
                                                     <input type="password" name="user_pass" value="${sessionScope.user.user_pass}" placeholder="Nhập mật khẩu">
                                                     <p style="color: red; align-content: center;">

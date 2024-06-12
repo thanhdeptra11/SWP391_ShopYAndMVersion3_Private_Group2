@@ -90,20 +90,18 @@
                             <thead>
                                 <tr>
                                     <th>ID phản hồi</th>
-                                    <th>Tên khách hàng</th>
-                                    <th>Email</th>
+                                    <th>Email khách hàng</th>
                                     <th>Tiêu đề phản hồi</th>
                                     <th>Nội dung phản hồi</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                <c:forEach items="${users}" var="u">
+                                <c:forEach items="${sessionScope.Reports}" var="u">
                                     <tr>
-                                        <td>${u.user_id}</td>
-                                        <td>${u.user_name}</td>
+                                        <td>${u.id_report}</td>
                                         <td>${u.user_email}</td>
-                                        <td>${u.user_email}</td>
-                                        <td>${u.user_email}</td>
+                                        <td>${u.subject_report}</td>
+                                        <td>${u.content_report}</td>
                                     </tr>
                                 </c:forEach>
                             </tbody>

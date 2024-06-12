@@ -5,14 +5,19 @@
  */
 package Controller.Home;
 
+import dal.reportDAO;
+import dal.userDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.List;
+import model.Report;
 
 public class Contact extends HttpServlet {
 
@@ -57,39 +62,25 @@ public class Contact extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        String email = request.getParameter("Email");
-        String subject = request.getParameter("Subject");
-        String message = request.getParameter("Message");
+        userDAO cdao = new userDAO();
+        reportDAO dao = new reportDAO();
+        String user_id = request.getParameter("user_id");
+        String user_email = request.getParameter("user_email");
+        String subject_report = request.getParameter("subject_report");
+        String content_report = request.getParameter("content_report");
+        dao.InsertReport(user_id, content_report, subject_report, user_email);
+        String msg ="Bạn đã gửi phản hồi thành công cho cửa hàng";
+        request.setAttribute("msgc", msg);
+        request.getRequestDispatcher("contact.jsp").forward(request, response);
+    }
 
-        // Construct the URL of your Google Apps Script web app endpoint
-        String scriptUrl = "https://script.google.com/macros/s/AKfycby2HoMCJyTeclcs-4VlInS-NG_hs161qiMTiuzUOpNZp_YRsmk/exec";
-        String urlParameters = "Email=" + email + "&Subject=" + subject + "&Message=" + message;
-
-        // Send a POST request to the Google Apps Script web app endpoint
-        URL url = new URL(scriptUrl + "?" + urlParameters);
-        HttpURLConnection connection = (HttpURLConnection) url.openConnection();
-        connection.setRequestMethod("GET");
-
-        // Read the response
-        int responseCode = connection.getResponseCode();
-
-        // Send response back to the client
-        PrintWriter out = response.getWriter();
-        if (responseCode == HttpURLConnection.HTTP_OK) {
-            out.println("Success! Your message has been sent.");
-        } else {
-            out.println("Failed to send message. Please try again later.");
-        }
-        out.close();  
-}
-
-/**
- * Returns a short description of the servlet.
- *
- * @return a String containing servlet description
- */
-@Override
-public String getServletInfo() {
+    /**
+     * Returns a short description of the servlet.
+     *
+     * @return a String containing servlet description
+     */
+    @Override
+    public String getServletInfo() {
         return "Short description";
     }// </editor-fold>
 
