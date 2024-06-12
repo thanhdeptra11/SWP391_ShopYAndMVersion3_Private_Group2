@@ -36,7 +36,7 @@
                     <div class="col-12">
                         <div class="breadcrumb_content">
                             <ul>
-                                <li><a href="index.html">Trang chủ</a></li>
+                                <li><a href="home">Trang chủ</a></li>
                                 <li>/</li>
                                 <li>Liên hệ</li>
                             </ul>

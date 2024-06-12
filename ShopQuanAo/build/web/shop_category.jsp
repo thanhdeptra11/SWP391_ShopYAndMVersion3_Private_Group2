@@ -69,8 +69,17 @@
                                     <input type="checkbox" name="price" value="2"> <b>Từ 200.000Vnđ - 500.000Vnđ</b><br>
                                     <input type="checkbox" name="price" value="3"> <b>Từ 500.000 Vnđ - 1.000.000 Vnđ</b><br>
                                     <input type="checkbox" name="price" value="4"> <b>1 triệu Vnđ trở lên</b><br>
-                                    <input type="submit" value="Tìm kiếm">
+                                    <input type="submit" value="Lọc">
                                 </form>
+                                </br>
+                                <h2>Màu Sắc</h2>
+                                    <form action="product?action=SearchByColor" method="POST">
+                                        <input type="checkbox" name="colors" value="0"> <b>Đỏ</b> <br>
+                                        <input type="checkbox" name="colors" value="1"> <b>Xanh</b><br>
+                                        <input type="checkbox" name="colors" value="2"> <b>Trắng</b><br>
+                                        <input type="checkbox" name="colors" value="3"> <b>Đen </b><br>
+                                        <input type="submit" value="Lọc">
+                                    </form>
                             </div>
                         </div>
                         <!-- Sidebar widget end -->
@@ -93,22 +102,32 @@
                             </div>
                         </div>
                         <div class="row shop_wrapper">
-                            <c:forEach items="${ProductData}" var="p">
-                                <div class="col-lg-4 col-md-4 col-12">
-                                    <div class="single_product">
-                                        <div class="product_thumb">
-                                            <a class="primary_img" href="product?action=productdetail&product_id=${p.product_id}"><img src="${p.img}" alt=""></a>
-                                            <div class="quick_button">
-                                                <a href="product?action=productdetail&product_id=${p.product_id}" title="quick_view">Xem sản phẩm</a>
+                            <c:choose>
+                                    <c:when test="${empty ProductData}">
+                                        <div class="col-12 text-center">
+                                            <img src="assets/img/logo/no-products-found.jpg" alt="No products found" />
+                                            <p><b>Không có sản phẩm nào được tìm thấy</b></p>
+                                        </div>
+                                    </c:when>
+                                    <c:otherwise>
+                                        <c:forEach items="${ProductData}" var="p">
+                                            <div class="col-lg-4 col-md-4 col-12">
+                                                <div class="single_product">
+                                                    <div class="product_thumb">
+                                                        <a class="primary_img" href="product?action=productdetail&product_id=${p.product_id}"><img src="${p.img}" alt=""></a>
+                                                        <div class="quick_button">
+                                                            <a href="product?action=productdetail&product_id=${p.product_id}" title="quick_view">Xem sản phẩm</a>
+                                                        </div>
+                                                    </div>
+                                                    <div class="product_content grid_content">
+                                                        <h3><a href="product?action=productdetail&product_id=${p.product_id}">${p.product_name}</a></h3>
+                                                        <span class="current_price">${p.product_price}</span>
+                                                    </div>
+                                                </div>
                                             </div>
-                                        </div>
-                                        <div class="product_content grid_content">
-                                            <h3><a href="product?action=productdetail&product_id=${p.product_id}">${p.product_name}</a></h3>
-                                            <span class="current_price">${p.product_price}</span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </c:forEach>
+                                        </c:forEach>
+                                    </c:otherwise>
+                                </c:choose>
                         </div>
                         <div class="shop_toolbar t_bottom">
                             <div class="pagination">

@@ -131,7 +131,7 @@
                     <div class="col-12">
                         <div class="breadcrumb_content">
                             <ul>
-                                <li><a href="home">home</a></li>
+                                <li><a href="home">Trang chủ</a></li>
                                 <li>/</li>
                                 <li>product details</li>
                             </ul>

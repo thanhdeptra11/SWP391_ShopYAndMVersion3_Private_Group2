@@ -36,7 +36,7 @@ x<%@page contentType="text/html" pageEncoding="UTF-8"%>
                     <div class="col-12">
                         <div class="breadcrumb_content">
                             <ul>
-                                <li><a href="index.html">home</a></li>
+                                <li><a href="home">Trang chủ</a></li>
                                 <li>/</li>
                                 <li>checkout</li>
                             </ul>
