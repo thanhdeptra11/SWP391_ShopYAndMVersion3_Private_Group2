@@ -4,7 +4,6 @@
  */
 package Controller.Home;
 
-
 import dal.userDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -79,13 +78,21 @@ public class ForgotServlet extends HttpServlet {
         String email = request.getParameter("email");
         HttpSession session = request.getSession();
         User a = dao.checkAcc(email);
+        String gRecaptchaResponse = request.getParameter("g-recaptcha-response");
+        System.out.println(gRecaptchaResponse);
+        boolean verify = VerifyRecaptcha.verify(gRecaptchaResponse);
+        if (!verify) {
+            request.setAttribute("Recaptcha", "Vui lòng xác nhận mã captcha");
+            request.getRequestDispatcher("forgotpass.jsp").forward(request, response);
+            return;
+        }
         if (a != null) {
             SendEmail sm = new SendEmail();
             String code = sm.getRandom();
             UserC userc = new UserC(code, email);
             boolean test = sm.sendEmail2(userc);
             if (test && userc != null) {
-                User ac = new User(a.getUser_id(), a.getUser_name(), email, userc.getCode(), a.getIsAdmin(),a.getDateOfBirth(),a.getAddress(),a.getPhoneNumber());
+                User ac = new User(a.getUser_id(), a.getUser_name(), email, userc.getCode(), a.getIsAdmin(), a.getDateOfBirth(), a.getAddress(), a.getPhoneNumber());
                 dao.change(ac);
                 session.setAttribute("user", ac);
                 response.sendRedirect("login.jsp");

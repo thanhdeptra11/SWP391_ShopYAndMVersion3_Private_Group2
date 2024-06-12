@@ -31,15 +31,17 @@
                         <h2>Quên Mật Khẩu</h2>
                         <form action="fpass" method="POST">
                             <p style="color: red; align-content: center;">
-                                ${sessionScope.msg}
+                                <b>${sessionScope.msg}</b>
                             </p>
                             <p>   
+                            <p style="color:red" ><b>${requestScope.Recaptcha}</b></p>
                                 <label>Nhập Email của bạn <span>*</span></label>
                                 <input name="email" type="text">
                             </p>
+                            <input type="hidden" name="g-recaptcha-response" id="g-recaptcha-response">
+                            <div class="g-recaptcha" data-sitekey="6LefS_ApAAAAAG7d6P0zRbGoed8oK2dwNnez6agN"></div>
                             <div class="login_submit">
                                 <button type="submit">Đặt lại mật khẩu</button>
-
                             </div>
 
                         </form>
@@ -52,7 +54,13 @@
 
     <!-- JS
     ============================================ -->
-
+    <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+    <script>
+        function onSubmit() {
+            var response = grecaptcha.getResponse();
+            document.getElementById('g-recaptcha-response').value = response;
+        }
+    </script>
 
     <!--map js code here-->
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAdWLY_Y6FL7QGW5vcO3zajUEsrKfQPNzI"></script>

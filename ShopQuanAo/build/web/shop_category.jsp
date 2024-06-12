@@ -74,7 +74,7 @@
                                     <br>
                                     <h2>Màu Sắc</h2>
                                     <form action="product?action=SearchByColor" method="POST">
-                                        <input type="checkbox" name="colors" value="0"> Đỏ <br>
+                                        <input type="checkbox" name="colors" value="0"><b> Đỏ </b><br>
                                         <input type="checkbox" name="colors" value="1"> <b>Xanh</b><br>
                                         <input type="checkbox" name="colors" value="2"> <b>Trắng</b><br>
                                         <input type="checkbox" name="colors" value="3"> <b>Đen </b><br>
