@@ -57,7 +57,60 @@ public class ReportManager extends HttpServlet {
                     session.setAttribute("Reports", reports);
                     request.setAttribute("users", users);
                     page = "admin/report.jsp";
-                } else if (action.equalsIgnoreCase("insert")) {
+                } else if (action.equalsIgnoreCase("insertcategory")) {
+                    productDAO c = new productDAO();
+                    List<Category> category = c.getCategory();
+                    request.setAttribute("CategoryData", category);
+                    String name = request.getParameter("name");
+                    if (name != null && !name.isEmpty()) {
+                        productDAO dao = new productDAO();
+                        Category d = dao.getCategoryByName(name);
+                        if (d != null) {
+                            request.setAttribute("error", name + " already exists.");
+                            page = "admin/category.jsp";
+                        } else {
+                            dao.insertCategory(name);
+                            response.sendRedirect("categorymanager");
+                            return;
+                        }
+                    } else {
+                        request.setAttribute("error", "Category name cannot be empty.");
+                        page = "admin/category.jsp";
+                    }
+                } else if (action.equalsIgnoreCase("updatecategory")) {
+                    String category_id = request.getParameter("category_id");
+                    String category_name = request.getParameter("category_name");
+
+                    if (category_id != null && category_name != null && !category_id.isEmpty() && !category_name.isEmpty()) {
+                        try {
+                            int categoryId = Integer.parseInt(category_id);
+                            categoryDAO dao = new categoryDAO();
+                            dao.updateCategory(categoryId, category_name);
+                            response.sendRedirect("categorymanager");
+                            return;
+                        } catch (NumberFormatException e) {
+                            request.setAttribute("error", "Invalid category ID format.");
+                        } catch (Exception e) {
+                            request.setAttribute("error", "An error occurred while updating the category.");
+                        }
+                    } else {
+                        // Handle validation errors or missing parameters
+                        request.setAttribute("error", "Category ID and Name cannot be empty.");
+                    }
+                    // Forward back to the category manager page with an error message
+                    page = "admin/category.jsp"; // Set the destination page
+
+                    RequestDispatcher dd = request.getRequestDispatcher(page);
+                    dd.forward(request, response);
+
+                } else if (action.equalsIgnoreCase("delete")) {
+                    String category_id = request.getParameter("category_id");
+                    int id = Integer.parseInt(category_id);
+                    categoryDAO dao = new categoryDAO();
+                    dao.deleteCategory(id);
+                    response.sendRedirect("categorymanager");
+                    return;
+                }else if (action.equalsIgnoreCase("insert")) {
                     reportDAO dao = new reportDAO();
                    String user_id = request.getParameter("user_id");
                    String user_email = request.getParameter("user_email");
@@ -74,7 +127,7 @@ public class ReportManager extends HttpServlet {
         RequestDispatcher dd = request.getRequestDispatcher(page);
         dd.forward(request, response);
 
-    }  
+    }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
