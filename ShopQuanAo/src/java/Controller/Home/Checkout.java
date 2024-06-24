@@ -93,8 +93,9 @@ public class Checkout extends HttpServlet {
                     if (payment_method.equals("vnpay")) {
                         model.Bill bill = dao.getBill();
                         int total = Math.round(bill.getTotal());
+                        int billId = bill.getBill_id();
                         request.setAttribute("total", total);
-                        request.setAttribute("bill", bill);
+                        request.setAttribute("billId", billId);
                         request.getRequestDispatcher("CreateNewPayment.jsp").forward(request, response);
                     }
             } 
