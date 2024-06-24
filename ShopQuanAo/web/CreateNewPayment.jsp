@@ -12,23 +12,24 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>JSP Page</title>
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     </head>
    <body>
     <div class="container mt-5">
         
-            <form action="PaymentController" id="frmCreateOrder" method="post">
+            <form action="VnpayController" id="frmCreateOrder" method="post">
                 <legend>Tao moi don thanh toan</legend>
                 <div class="col-md-4 col-lg-3">
                   <div class="mb-3">
                       <label for="disabledTextInput" class="form-label">Ma don hang</label>
-                      <input type="text" id="disabledTextInput" class="form-control" disabled value="${requestScope.billId}" name="billId">
+                      <input type="text" id="disabledTextInput" class="form-control"  value="${requestScope.billId}" name="billId">
                     </div>
                 </div>
                 
                 <div class="col-md-4 col-lg-3">
                     <div class="mb-3">
                         <label for="disabledTextInput" class="form-label">Gia tien</label>
-                        <input type="text" id="disabledTextInput" class="form-control" value="${requestScope.total}" disabled name="amount">
+                        <input type="text" id="disabledTextInput" class="form-control"  value="${requestScope.total}"  name="amount">
                       </div>
                 </div>
                 
