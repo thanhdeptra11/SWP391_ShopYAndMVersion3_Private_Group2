@@ -1,10 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-
-<web-app xmlns="https://jakarta.ee/xml/ns/jakartaee"
-	 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	 xsi:schemaLocation="https://jakarta.ee/xml/ns/jakartaee https://jakarta.ee/xml/ns/jakartaee/web-app_6_0.xsd"
-	 version="6.0">
-<servlet>
+<web-app version="6.0" xmlns="https://jakarta.ee/xml/ns/jakartaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="https://jakarta.ee/xml/ns/jakartaee https://jakarta.ee/xml/ns/jakartaee/web-app_6_0.xsd">
+    <servlet>
         <servlet-name>ProductManager</servlet-name>
         <servlet-class>Controller.Admin.ProductManager</servlet-class>
     </servlet>
@@ -52,6 +48,26 @@
         <servlet-name>Checkout</servlet-name>
         <servlet-class>Controller.Home.Checkout</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>VnpayController</servlet-name>
+        <servlet-class>Payment.VnpayController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ajaxServlet</servlet-name>
+        <servlet-class>Vnpay.ajaxServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>VnpayQuery</servlet-name>
+        <servlet-class>Vnpay.VnpayQuery</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>VnpayRefund</servlet-name>
+        <servlet-class>Vnpay.VnpayRefund</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>PaymentResult</servlet-name>
+        <servlet-class>Vnpay.PaymentResult</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>ProductManager</servlet-name>
         <url-pattern>/productmanager</url-pattern>
@@ -95,6 +111,26 @@
     <servlet-mapping>
         <servlet-name>Checkout</servlet-name>
         <url-pattern>/checkout</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>VnpayController</servlet-name>
+        <url-pattern>/VnpayController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ajaxServlet</servlet-name>
+        <url-pattern>/ajaxServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>VnpayQuery</servlet-name>
+        <url-pattern>/VnpayQuery</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>VnpayRefund</servlet-name>
+        <url-pattern>/VnpayRefund</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>PaymentResult</servlet-name>
+        <url-pattern>/PaymentResult</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

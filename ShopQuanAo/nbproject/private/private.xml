@@ -3,14 +3,16 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/Thanh/Desktop/SWP391_ShopYAndMVersion3_Private_Group2Version2/ShopQuanAo/src/java/dal/userDAO.java</file>
-            <file>file:/C:/Users/Thanh/Desktop/SWP391_ShopYAndMVersion3_Private_Group2Version2/ShopQuanAo/web/META-INF/context.xml</file>
-            <file>file:/C:/Users/Thanh/Desktop/SWP391_ShopYAndMVersion3_Private_Group2Version2/ShopQuanAo/src/java/dal/DBContext.java</file>
-            <file>file:/C:/Users/Thanh/Desktop/SWP391_ShopYAndMVersion3_Private_Group2Version2/ShopQuanAo/src/java/model/Comment.java</file>
-            <file>file:/C:/Users/Thanh/Desktop/SWP391_ShopYAndMVersion3_Private_Group2Version2/ShopQuanAo/web/.gitignore</file>
+            <file>file:/C:/Users/Thanh/Desktop/SWP391_ShopYAndMVersion3_Private_Group2Version2/ShopQuanAo/src/java/Controller/Home/Checkout.java</file>
+            <file>file:/C:/Users/Thanh/Desktop/SWP391_ShopYAndMVersion3_Private_Group2Version2/ShopQuanAo/web/vnpay_return.jsp</file>
+            <file>file:/C:/Users/Thanh/Desktop/SWP391_ShopYAndMVersion3_Private_Group2Version2/ShopQuanAo/src/java/Vnpay/ajaxServlet.java</file>
+            <file>file:/C:/Users/Thanh/Desktop/SWP391_ShopYAndMVersion3_Private_Group2Version2/ShopQuanAo/src/java/Vnpay/VnpayQuery.java</file>
+            <file>file:/C:/Users/Thanh/Desktop/SWP391_ShopYAndMVersion3_Private_Group2Version2/ShopQuanAo/src/java/Vnpay/VnpayRefund.java</file>
+            <file>file:/C:/Users/Thanh/Desktop/SWP391_ShopYAndMVersion3_Private_Group2Version2/ShopQuanAo/src/java/Vnpay/Config.java</file>
+            <file>file:/C:/Users/Thanh/Desktop/SWP391_ShopYAndMVersion3_Private_Group2Version2/ShopQuanAo/web/vnpay_pay.jsp</file>
+            <file>file:/C:/Users/Thanh/Desktop/SWP391_ShopYAndMVersion3_Private_Group2Version2/ShopQuanAo/web/CreateNewPayment.jsp</file>
             <file>file:/C:/Users/Thanh/Desktop/SWP391_ShopYAndMVersion3_Private_Group2Version2/ShopQuanAo/web/ShopQuanAoButVer2.html</file>
             <file>file:/C:/Users/Thanh/Desktop/SWP391_ShopYAndMVersion3_Private_Group2Version2/ShopQuanAo/web/WEB-INF/web.xml</file>
-            <file>file:/C:/Users/Thanh/Desktop/SWP391_ShopYAndMVersion3_Private_Group2Version2/ShopQuanAo/src/java/dal/billDAO.java</file>
         </group>
     </open-files>
 </project-private>
