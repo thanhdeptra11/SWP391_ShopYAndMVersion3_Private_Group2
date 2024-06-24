@@ -96,7 +96,7 @@ public class Checkout extends HttpServlet {
                         int billId = bill.getBill_id();
                         request.setAttribute("total", total);
                         request.setAttribute("billId", billId);
-                        request.getRequestDispatcher("CreateNewPayment.jsp").forward(request, response);
+                        request.getRequestDispatcher("vnpay_pay.jsp").forward(request, response);
                     }
             } 
                 else {
